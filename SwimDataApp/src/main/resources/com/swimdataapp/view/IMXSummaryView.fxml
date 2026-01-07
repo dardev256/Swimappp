@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.IMXSummaryController">
+    <children>
+        <Label styleClass="sub-header-label" text="Team IMX Summary" />
+        <TableView fx:id="summaryTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="nameCol" prefWidth="200.0" text="Swimmer" />
+                <TableColumn fx:id="scoreCol" prefWidth="150.0" text="Total Points" />
+                <TableColumn fx:id="levelCol" prefWidth="150.0" text="Level" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

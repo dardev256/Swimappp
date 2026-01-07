@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="content-pane" spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.IMXDashboardController">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="20">
+         <children>
+            <Label styleClass="header-label" text="IMX Dashboard" />
+            <HBox alignment="CENTER_LEFT" styleClass="card" spacing="15">
+               <children>
+                  <Label text="View As:" />
+                  <RadioButton fx:id="individualRadio" mnemonicParsing="false" selected="true" text="Individual">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="viewToggle" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="summaryRadio" mnemonicParsing="false" text="Group Summary" toggleGroup="$viewToggle" />
+               </children>
+               <padding><Insets left="15" right="15" top="10" bottom="10" /></padding>
+            </HBox>
+         </children>
+      </HBox>
+      <StackPane fx:id="contentStackPane" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

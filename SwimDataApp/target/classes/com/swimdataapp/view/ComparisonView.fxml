@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="content-pane" spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.ComparisonController">
+   <children>
+      <Label styleClass="header-label" text="Swimmer Comparison" />
+      <HBox alignment="CENTER_LEFT" spacing="20">
+         <children>
+            <VBox>
+               <children>
+                  <Label styleClass="caption-label" text="Swimmer A" />
+                  <ComboBox fx:id="swimmerASelector" prefWidth="250.0" promptText="Select Swimmer" />
+               </children>
+            </VBox>
+            <Label styleClass="header-label" text="vs" />
+            <VBox>
+               <children>
+                  <Label styleClass="caption-label" text="Swimmer B" />
+                  <ComboBox fx:id="swimmerBSelector" prefWidth="250.0" promptText="Select Swimmer" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
+         <items>
+            <VBox spacing="10">
+               <children>
+                  <Label styleClass="sub-header-label" text="Personal Best Comparison" />
+                  <TableView fx:id="pbComparisonTable" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="eventColumn" prefWidth="150.0" text="Event" />
+                        <TableColumn fx:id="swimmerAColumn" prefWidth="120.0" text="Swimmer A" />
+                        <TableColumn fx:id="swimmerBColumn" prefWidth="120.0" text="Swimmer B" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <VBox spacing="10">
+               <children>
+                  <Label styleClass="sub-header-label" text="IMX Score History" />
+                  <LineChart fx:id="imxComparisonChart" animated="false" VBox.vgrow="ALWAYS">
+                     <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                     <yAxis><NumberAxis side="LEFT" /></yAxis>
+                  </LineChart>
+               </children>
+            </VBox>
+         </items>
+      </SplitPane>
+   </children>
+</VBox>

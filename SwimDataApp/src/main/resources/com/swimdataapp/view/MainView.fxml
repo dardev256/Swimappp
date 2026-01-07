@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.MainViewController">
+    <left>
+        <VBox fx:id="navRail" styleClass="nav-rail">
+            <children>
+                <Label styleClass="header-label" text="SwimApp">
+                    <VBox.margin>
+                        <Insets bottom="30.0" />
+                    </VBox.margin>
+                </Label>
+                <Button fx:id="dashboardNavButton" onAction="#showSwimmerDashboard" styleClass="nav-button" text="Dashboard" />
+                <Button fx:id="compareNavButton" onAction="#showComparison" styleClass="nav-button" text="Compare" />
+                <Button fx:id="testSetNavButton" onAction="#showTestSetDashboard" styleClass="nav-button" text="Test Sets" />
+                <Button fx:id="imxNavButton" onAction="#showIMXDashboard" styleClass="nav-button" text="IMX" />
+                <VBox VBox.vgrow="ALWAYS" />
+                <Button onAction="#handleLoadFile" styleClass="nav-button" text="Load Data" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="contentStackPane" />
+    </center>
+</BorderPane>

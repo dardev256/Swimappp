@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="content-pane" spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.TestSetAnalysisController">
+   <children>
+      <Label styleClass="header-label" text="Test Set Analysis" />
+      <HBox alignment="CENTER_LEFT" spacing="20">
+         <children>
+            <VBox>
+               <children>
+                  <Label styleClass="caption-label" text="Select Swimmer" />
+                  <ComboBox fx:id="swimmerSelector" prefWidth="250.0" promptText="Select a Swimmer" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label styleClass="caption-label" text="Select Test Set" />
+                  <ComboBox fx:id="testSetSelector" prefWidth="250.0" promptText="Select a Test Set" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox fx:id="contentPane" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

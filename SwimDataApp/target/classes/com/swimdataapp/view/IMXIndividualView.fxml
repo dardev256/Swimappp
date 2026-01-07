@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.IMXIndividualController">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <children>
+                <Label styleClass="sub-header-label" text="Select Swimmer:"/>
+                <ComboBox fx:id="swimmerSelector" prefWidth="300.0" promptText="Select a Swimmer"/>
+            </children>
+        </HBox>
+        <VBox fx:id="imxCard" styleClass="card" spacing="5">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <children>
+                <Label text="CURRENT IMX SCORE"/>
+                <Label fx:id="imxScoreLabel" styleClass="data-label"/>
+                <ProgressBar fx:id="progressToNextLevelBar" maxWidth="1.7976931348623157E308" progress="0.0"/>
+                <Label fx:id="progressLabel" styleClass="caption-label"/>
+            </children>
+        </VBox>
+        <Label text="Points Breakdown"/>
+        <TableView fx:id="imxEventsTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="eventCol" prefWidth="250.0" text="Event"/>
+                <TableColumn fx:id="timeCol" text="Time"/>
+                <TableColumn fx:id="pointsCol" text="Points"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>
