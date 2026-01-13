@@ -8,11 +8,11 @@ com/swimdataapp/SwimApplication.class
 module-info.class
 com/swimdataapp/model/TestSetResult.class
 com/swimdataapp/services/FileParsingService.class
-com/swimdataapp/controller/MainViewController$1.class
 com/swimdataapp/controller/IMXIndividualController.class
+com/swimdataapp/controller/MainViewController$1.class
 com/swimdataapp/model/SingleTimeTestResult.class
-com/swimdataapp/model/IMXProfile.class
 com/swimdataapp/model/IMXPoint.class
+com/swimdataapp/model/IMXProfile.class
 com/swimdataapp/model/MeetResult.class
 com/swimdataapp/services/TestSetManager.class
 com/swimdataapp/controller/IMXSummaryController.class
