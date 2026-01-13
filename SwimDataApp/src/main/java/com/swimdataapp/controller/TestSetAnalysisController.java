@@ -22,8 +22,6 @@ public class TestSetAnalysisController {
   @FXML
   private ComboBox<String> testSetSelector;
   @FXML
-  private ComboBox<Swimmer> swimmerSelector;
-  @FXML
   private VBox contentPane;
 
   private Map<String, List<TestSetResult>> allResults;
@@ -41,13 +39,11 @@ public class TestSetAnalysisController {
 
   @FXML
   public void initialize() {
-    swimmerSelector.setItems(dataManager.getSwimmers());
-    swimmerSelector.valueProperty().bindBidirectional(dataManager.selectedSwimmerProperty());
-
     testSetSelector.getSelectionModel().selectedItemProperty()
         .addListener((obs, oldV, newV) -> updateView());
-    swimmerSelector.getSelectionModel().selectedItemProperty()
-        .addListener((obs, oldV, newV) -> updateView());
+    
+    // Listen to changes in the globally selected swimmer
+    dataManager.selectedSwimmerProperty().addListener((obs, oldV, newV) -> updateView());
   }
 
   /**
@@ -65,17 +61,14 @@ public class TestSetAnalysisController {
     updateView();
   }
 
-  /**
-   * Update the view based on selected test set and swimmer.
-   */
   private void updateView() {
-    if (allResults == null || testSetSelector.getValue() == null || swimmerSelector.getValue() == null) {
+    Swimmer selectedSwimmer = dataManager.getSelectedSwimmer();
+    if (allResults == null || testSetSelector.getValue() == null || selectedSwimmer == null) {
       contentPane.getChildren().clear();
       return;
     }
 
     String selectedTest = testSetSelector.getValue();
-    Swimmer selectedSwimmer = swimmerSelector.getValue();
     List<TestSetResult> resultsForTest = allResults.getOrDefault(selectedTest, new ArrayList<>());
 
     displayIndividualView(resultsForTest, selectedSwimmer.getName(), selectedTest);

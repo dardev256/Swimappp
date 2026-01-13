@@ -21,6 +21,12 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.VBox;
+import java.io.IOException;
+import java.util.Objects;
 
 public class DashboardController {
 
@@ -40,6 +46,12 @@ public class DashboardController {
   private TableColumn<MeetResult, LocalDate> dateColumn;
   @FXML
   private TableColumn<MeetResult, String> standardColumn;
+  @FXML
+  private TabPane dashboardTabPane;
+  @FXML
+  private VBox imxDetailsTabContent;
+  @FXML
+  private VBox testSetAnalysisTabContent;
 
   private final DataManager dataManager = DataManager.getInstance();
   private final TimeStandardService timeStandardService = new TimeStandardService();
@@ -49,13 +61,38 @@ public class DashboardController {
     swimmerSelector.setItems(dataManager.getSwimmers());
     swimmerSelector.valueProperty().bindBidirectional(dataManager.selectedSwimmerProperty());
 
-    dataManager.selectedSwimmerProperty().addListener((obs, oldV, newV) -> {
-      if (newV != null) {
-        updateDashboard(newV);
-      }
-    });
+    // The individual tabs will listen to selectedSwimmerProperty changes
+    // No need to call updateDashboard directly from here anymore
+    // dataManager.selectedSwimmerProperty().addListener((obs, oldV, newV) -> {
+    //   if (newV != null) {
+    //     updateDashboard(newV);
+    //   }
+    // });
 
     setupDashboardTable();
+
+    // Load content into tabs
+    try {
+      // Load IMX Individual View
+      FXMLLoader imxLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/IMXIndividualView.fxml")));
+      imxDetailsTabContent.getChildren().add(imxLoader.load());
+
+      // Load Test Set Analysis View
+      FXMLLoader testSetLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/TestSetAnalysis.fxml")));
+      testSetAnalysisTabContent.getChildren().add(testSetLoader.load());
+
+    } catch (IOException e) {
+      // Log or handle the exception appropriately
+      System.err.println("Failed to load tab content: " + e.getMessage());
+      e.printStackTrace();
+    }
+
+    // Initial update for the overview tab
+    if (dataManager.getSelectedSwimmer() != null) {
+      updateDashboard(dataManager.getSelectedSwimmer());
+    } else if (!dataManager.getSwimmers().isEmpty()) {
+      updateDashboard(dataManager.getSwimmers().get(0));
+    }
   }
 
   private void setupDashboardTable() {

@@ -3,14 +3,15 @@
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/DashboardController.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/IMXDashboardController.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/IMXIndividualController.java
-/home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/IMXSummaryController.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/MainViewController.java
+/home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/TeamIMXSummaryController.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/controller/TestSetAnalysisController.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/data/DataManager.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/IMXEvent.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/IMXPoint.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/IMXProfile.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/MeetResult.java
+/home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/NKBRecord.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/SingleTimeTestResult.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/Swimmer.java
 /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/src/main/java/com/swimdataapp/model/TestSetResult.java

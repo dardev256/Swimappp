@@ -1,6 +1,8 @@
 package com.swimdataapp.services;
 
+import com.swimdataapp.data.DataManager;
 import com.swimdataapp.model.IMXEvent;
+import com.swimdataapp.model.NKBRecord;
 import com.swimdataapp.model.IMXPoint;
 import com.swimdataapp.model.IMXProfile;
 import com.swimdataapp.model.MeetResult;
@@ -26,28 +28,7 @@ public class IMXService {
       "13-14", List.of("200 Freestyle", "100 Backstroke", "100 Breaststroke", "100 Butterfly", "200 IM"),
       "15-16", List.of("400 Freestyle", "200 Backstroke", "200 Breaststroke", "200 Butterfly", "400 IM"));
 
-  // Just to inform NKB is the club that work for as a swim coach
-  private static final Map<String, Double> NKB_RECORDS = Map.ofEntries(
-      Map.entry("13-14 Boys SCM 200 Freestyle", 112.92),
-      Map.entry("13-14 Boys SCM 100 Backstroke", 59.81),
-      Map.entry("13-14 Boys SCM 100 Breaststroke", 67.50),
-      Map.entry("13-14 Boys SCM 100 Butterfly", 58.75),
-      Map.entry("13-14 Boys SCM 200 IM", 123.01),
-      Map.entry("13-14 Girls SCM 200 Freestyle", 118.45),
-      Map.entry("13-14 Girls SCM 100 Backstroke", 65.90),
-      Map.entry("13-14 Girls SCM 100 Breaststroke", 73.30),
-      Map.entry("13-14 Girls SCM 100 Butterfly", 64.50),
-      Map.entry("13-14 Girls SCM 200 IM", 130.50),
-      Map.entry("15-16 Boys SCM 400 Freestyle", 230.99),
-      Map.entry("15-16 Boys SCM 200 Backstroke", 123.70),
-      Map.entry("15-16 Boys SCM 200 Breaststroke", 140.50),
-      Map.entry("15-16 Boys SCM 200 Butterfly", 121.80),
-      Map.entry("15-16 Boys SCM 400 IM", 266.65),
-      Map.entry("15-16 Girls SCM 400 Freestyle", 247.50),
-      Map.entry("15-16 Girls SCM 200 Backstroke", 130.85),
-      Map.entry("15-16 Girls SCM 200 Breaststroke", 152.40),
-      Map.entry("15-16 Girls SCM 200 Butterfly", 133.20),
-      Map.entry("15-16 Girls SCM 400 IM", 278.72));
+
 
   /**
    * Calculate the IMX profile for a swimmer based on their event history.
@@ -70,6 +51,7 @@ public class IMXService {
     List<String> requiredEvents = IMX_EVENTS_BY_AGE_GROUP.getOrDefault(ageGroup, new ArrayList<>());
     ObservableList<IMXEvent> contributingEvents = FXCollections.observableArrayList();
 
+    boolean allEventsCompleted = true;
     // Calculate points for each event
     for (String eventName : requiredEvents) {
       MeetResult bestResult = bests.get(eventName);
@@ -79,10 +61,15 @@ public class IMXService {
         contributingEvents.add(new IMXEvent(eventName, bestResult.getTime(), points));
       } else {
         contributingEvents.add(new IMXEvent(eventName, "N/A", 0));
+        allEventsCompleted = false; // Mark as incomplete if any event is missing
       }
     }
 
-    String level = determineLevel(totalScore);
+    String level = "Unranked";
+    if (allEventsCompleted) {
+        level = determineLevel(totalScore);
+    }
+    
     int scoreForCurrent = getScoreForLevel(level);
     int scoreForNext = getNextLevelScore(level);
 
@@ -127,7 +114,7 @@ public class IMXService {
    * Calculate points for a single event based on national record.
    * Uses the formula: 1000 * (recordTime / swimmerTime)^3
    */
-  private int calculatePointsForEvent(MeetResult result, Swimmer swimmer) {
+  int calculatePointsForEvent(MeetResult result, Swimmer swimmer) {
     double swimmerTime = result.getTimeInSeconds();
 
     // Return 0 if time is invalid or zero
@@ -137,11 +124,22 @@ public class IMXService {
 
     String ageGroup = determineAgeGroup(swimmer.ageProperty().get());
     String gender = "Male".equalsIgnoreCase(swimmer.getGender()) ? "Boys" : "Girls";
-    String recordKey = ageGroup + " " + gender + " SCM " + result.getEventName();
-    Double recordTime = NKB_RECORDS.get(recordKey);
+    // Assuming course is SCM for now, this needs to be dynamically determined from MeetResult if available
+    String course = "SCM"; // Placeholder, needs actual course from MeetResult or EventName
 
-    if (recordTime != null && recordTime > 0) {
-      return (int) (1000 * Math.pow(recordTime / swimmerTime, 3));
+    // Find the NKBRecord from DataManager
+    Optional<NKBRecord> matchingRecord = DataManager.getInstance().getNkbRecords().stream()
+        .filter(rec -> rec.getAgeGroup().equalsIgnoreCase(ageGroup))
+        .filter(rec -> rec.getGender().equalsIgnoreCase(gender))
+        .filter(rec -> rec.getCourse().equalsIgnoreCase(course)) // Match course
+        .filter(rec -> rec.getEventName().equalsIgnoreCase(result.getEventName()))
+        .findFirst();
+
+    if (matchingRecord.isPresent()) {
+      double recordTime = matchingRecord.get().getRecordTime();
+      if (recordTime > 0) {
+        return (int) (1000 * Math.pow(recordTime / swimmerTime, 3));
+      }
     }
     return 0;
   }
@@ -169,7 +167,7 @@ public class IMXService {
   /**
    * Determine age group from age.
    */
-  private String determineAgeGroup(int age) {
+  String determineAgeGroup(int age) {
     if (age <= 10) {
       return "10 & Under";
     }

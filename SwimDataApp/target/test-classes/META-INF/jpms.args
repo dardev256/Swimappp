@@ -1,0 +1,4 @@
+--patch-module
+com.swimdataapp=_
+--add-reads
+com.swimdataapp=ALL-UNNAMED

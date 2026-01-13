@@ -1,6 +1,8 @@
 package com.swimdataapp.services;
 
+import com.swimdataapp.data.DataManager;
 import com.swimdataapp.model.MeetResult;
+import com.swimdataapp.model.NKBRecord;
 import com.swimdataapp.model.Swimmer;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,7 +30,7 @@ public class FileParsingService {
    * 
    * Expected file structure: -- Side note I did not include gender but it is
    * going to be something i go in the future.
-   * Sheet 1 "Roster": Name (col 0), DOB (col 1), Gender (col 2), RosterGroup (col
+   * Sheet 1 "Roster": Name (col 0), DOB (col 1), RosterGroup (col 2), Gender (col
    * 3)
    * Sheet 2 "Meet Results": Name (col 0), Event (col 1), Time (col 2), Date (col
    * 3)
@@ -56,6 +58,15 @@ public class FileParsingService {
       } else {
         LOGGER.warning("Meet Results sheet not found in workbook");
       }
+
+      // Step 3: Parse NKB Records Sheet
+      Sheet nkbRecordsSheet = workbook.getSheet("NKB Records");
+      if (nkbRecordsSheet != null) {
+        List<NKBRecord> nkbRecords = parseNKBRecordsSheet(nkbRecordsSheet, dataFormatter);
+        DataManager.getInstance().setNkbRecords(nkbRecords);
+      } else {
+        LOGGER.warning("NKB Records sheet not found in workbook");
+      }
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Failed to parse Excel file: " + filePath, e);
       throw e;
@@ -67,7 +78,7 @@ public class FileParsingService {
 
   /**
    * Parse the Roster sheet containing swimmer information.
-   * Columns: Name (0), DOB (1), Gender (2), RosterGroup (3)
+   * Columns: Name (0), DOB (1), RosterGroup (2), Gender (3)
    */
   private void parseRosterSheet(Sheet sheet, Map<String, Swimmer> swimmerMap, DataFormatter dataFormatter) {
     LOGGER.info("Parsing Roster sheet...");
@@ -161,6 +172,55 @@ public class FileParsingService {
   }
 
   /**
+   * Parse the "NKB Records" sheet containing NKB record times for various events.
+   * Columns: Age Group (0), Gender (1), Course (2), Event Name (3), Record Time (4)
+   */
+  private List<NKBRecord> parseNKBRecordsSheet(Sheet sheet, DataFormatter dataFormatter) {
+    LOGGER.info("Parsing NKB Records sheet...");
+    List<NKBRecord> nkbRecords = new ArrayList<>();
+
+    for (Row row : sheet) {
+      if (row.getRowNum() == 0) { // Skip header row
+        continue;
+      }
+
+      Cell ageGroupCell = row.getCell(0);
+      Cell genderCell = row.getCell(1);
+      Cell courseCell = row.getCell(2);
+      Cell eventNameCell = row.getCell(3);
+      Cell recordTimeCell = row.getCell(4);
+
+      if (ageGroupCell == null || genderCell == null || courseCell == null || eventNameCell == null || recordTimeCell == null) {
+        LOGGER.fine("Skipping incomplete row in NKB Records sheet at row " + (row.getRowNum() + 1));
+        continue;
+      }
+
+      String ageGroup = dataFormatter.formatCellValue(ageGroupCell).trim();
+      String gender = dataFormatter.formatCellValue(genderCell).trim();
+      String course = dataFormatter.formatCellValue(courseCell).trim();
+      String eventName = dataFormatter.formatCellValue(eventNameCell).trim();
+      double recordTime = 0.0;
+
+      try {
+        if (recordTimeCell.getCellType() == CellType.NUMERIC) {
+          recordTime = recordTimeCell.getNumericCellValue();
+        } else {
+          recordTime = Double.parseDouble(dataFormatter.formatCellValue(recordTimeCell).trim());
+        }
+      } catch (NumberFormatException e) {
+        LOGGER.log(Level.WARNING, "Could not parse record time in NKB Records sheet at row " + (row.getRowNum() + 1) + ". Skipping row.", e);
+        continue;
+      }
+
+      if (!ageGroup.isEmpty() && !gender.isEmpty() && !course.isEmpty() && !eventName.isEmpty() && recordTime > 0) {
+        nkbRecords.add(new NKBRecord(ageGroup, gender, course, eventName, recordTime));
+      }
+    }
+    return nkbRecords;
+  }
+
+
+  /**
    * Parse time from a cell, handling both numeric and string formats.
    */
   private String parseTimeFromCell(Cell cell, DataFormatter dataFormatter) {
@@ -179,7 +239,7 @@ public class FileParsingService {
           long hundredths = Math.round((totalSeconds - (minutes * 60) - seconds) * 100);
           return String.format("%02d:%02d.%02d", minutes, seconds, hundredths);
         } else {
-          return String.valueOf((int) cell.getNumericCellValue());
+          return dataFormatter.formatCellValue(cell).trim();
         }
       } else {
         return dataFormatter.formatCellValue(cell).trim();

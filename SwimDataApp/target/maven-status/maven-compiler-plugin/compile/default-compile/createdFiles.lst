@@ -3,6 +3,7 @@ com/swimdataapp/controller/ComparisonController.class
 com/swimdataapp/services/IMXService.class
 com/swimdataapp/services/TimeStandardService.class
 com/swimdataapp/controller/TestSetAnalysisController.class
+com/swimdataapp/model/NKBRecord.class
 com/swimdataapp/controller/IMXDashboardController.class
 com/swimdataapp/SwimApplication.class
 module-info.class
@@ -15,10 +16,10 @@ com/swimdataapp/model/IMXPoint.class
 com/swimdataapp/model/IMXProfile.class
 com/swimdataapp/model/MeetResult.class
 com/swimdataapp/services/TestSetManager.class
-com/swimdataapp/controller/IMXSummaryController.class
 com/swimdataapp/model/Swimmer.class
 com/swimdataapp/controller/MainViewController.class
 com/swimdataapp/data/DataManager.class
 com/swimdataapp/controller/DashboardController.class
 com/swimdataapp/controller/ComparisonController$1.class
 com/swimdataapp/model/IMXEvent.class
+com/swimdataapp/controller/TeamIMXSummaryController.class

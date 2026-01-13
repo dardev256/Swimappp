@@ -18,8 +18,7 @@
                 </Label>
                 <Button fx:id="dashboardNavButton" onAction="#showSwimmerDashboard" styleClass="nav-button" text="Dashboard" />
                 <Button fx:id="compareNavButton" onAction="#showComparison" styleClass="nav-button" text="Compare" />
-                <Button fx:id="testSetNavButton" onAction="#showTestSetDashboard" styleClass="nav-button" text="Test Sets" />
-                <Button fx:id="imxNavButton" onAction="#showIMXDashboard" styleClass="nav-button" text="IMX" />
+                <Button fx:id="teamIMXSummaryNavButton" onAction="#showTeamIMXSummary" styleClass="nav-button" text="Team IMX Summary" />
                 <VBox VBox.vgrow="ALWAYS" />
                 <Button onAction="#handleLoadFile" styleClass="nav-button" text="Load Data" />
             </children>

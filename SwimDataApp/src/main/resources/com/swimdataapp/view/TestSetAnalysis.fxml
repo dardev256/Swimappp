@@ -12,12 +12,6 @@
          <children>
             <VBox>
                <children>
-                  <Label styleClass="caption-label" text="Select Swimmer" />
-                  <ComboBox fx:id="swimmerSelector" prefWidth="250.0" promptText="Select a Swimmer" />
-               </children>
-            </VBox>
-            <VBox>
-               <children>
                   <Label styleClass="caption-label" text="Select Test Set" />
                   <ComboBox fx:id="testSetSelector" prefWidth="250.0" promptText="Select a Test Set" />
                </children>

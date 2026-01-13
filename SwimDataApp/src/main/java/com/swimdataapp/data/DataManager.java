@@ -1,5 +1,6 @@
 package com.swimdataapp.data;
 
+import com.swimdataapp.model.NKBRecord;
 import com.swimdataapp.model.Swimmer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,6 +11,7 @@ public class DataManager {
   private static DataManager instance;
   private final ObservableList<Swimmer> swimmers = FXCollections.observableArrayList();
   private final ObjectProperty<Swimmer> selectedSwimmer = new SimpleObjectProperty<>();
+  private final ObservableList<NKBRecord> nkbRecords = FXCollections.observableArrayList();
 
   private DataManager() {
   }
@@ -44,5 +46,13 @@ public class DataManager {
 
   public ObjectProperty<Swimmer> selectedSwimmerProperty() {
     return selectedSwimmer;
+  }
+
+  public ObservableList<NKBRecord> getNkbRecords() {
+    return nkbRecords;
+  }
+
+  public void setNkbRecords(java.util.List<NKBRecord> nkbRecordList) {
+    nkbRecords.setAll(nkbRecordList);
   }
 }

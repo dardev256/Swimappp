@@ -13,8 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class IMXIndividualController {
 
   @FXML
-  private ComboBox<Swimmer> swimmerSelector;
-  @FXML
   private Label imxScoreLabel;
   @FXML
   private ProgressBar progressToNextLevelBar;
@@ -34,10 +32,6 @@ public class IMXIndividualController {
 
   @FXML
   public void initialize() {
-    swimmerSelector.setItems(dataManager.getSwimmers());
-
-    swimmerSelector.valueProperty().bindBidirectional(dataManager.selectedSwimmerProperty());
-
     // This listener correctly updates the view whenever the central selected
     // swimmer changes.
     dataManager.selectedSwimmerProperty().addListener((obs, oldV, newV) -> {

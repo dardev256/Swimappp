@@ -38,15 +38,14 @@ public class MainViewController {
   private final IMXService imxService = new IMXService();
   private final DataManager dataManager = DataManager.getInstance();
 
-  private Pane dashboardView, comparisonView, testSetView, imxView;
-  private TestSetAnalysisController testSetAnalysisController;
+  private Pane dashboardView, comparisonView, teamIMXSummaryView;
 
   private volatile boolean isLoading = false;
 
   @FXML
   public void initialize() throws IOException {
     loadViews();
-    contentStackPane.getChildren().addAll(dashboardView, comparisonView, testSetView, imxView);
+    contentStackPane.getChildren().addAll(dashboardView, comparisonView, teamIMXSummaryView);
     showSwimmerDashboard();
   }
 
@@ -57,13 +56,9 @@ public class MainViewController {
       comparisonView = FXMLLoader
           .load(Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/ComparisonView.fxml")));
 
-      FXMLLoader testSetLoader = new FXMLLoader(
-          Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/TestSetAnalysis.fxml")));
-      testSetView = testSetLoader.load();
-      testSetAnalysisController = testSetLoader.getController();
-
-      imxView = FXMLLoader
-          .load(Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/IMXDashboard.fxml")));
+      // Load Team IMX Summary View
+      teamIMXSummaryView = FXMLLoader
+          .load(Objects.requireNonNull(getClass().getResource("/com/swimdataapp/view/TeamIMXSummaryView.fxml")));
     } catch (NullPointerException e) {
       LOGGER.log(Level.SEVERE, "Could not load FXML resource: " + e.getMessage(), e);
       showErrorAlert("Resource Error", "Could not load application views. Check that all FXML files are present.");
@@ -143,7 +138,7 @@ public class MainViewController {
       List<Swimmer> swimmers = task.getValue();
       Platform.runLater(() -> {
         dataManager.setSwimmers(swimmers);
-        testSetAnalysisController.setTestSetData(testSetManager.getAllResults());
+        // testSetAnalysisController.setTestSetData(testSetManager.getAllResults()); // Removed as TestSetAnalysis now manages its own data
         isLoading = false;
         loadButton.setDisable(false);
 
@@ -232,15 +227,11 @@ public class MainViewController {
     setActiveNav((Button) navRail.lookup("#compareNavButton"));
   }
 
-  @FXML
-  private void showTestSetDashboard() {
-    showView(testSetView);
-    setActiveNav((Button) navRail.lookup("#testSetNavButton"));
-  }
+
 
   @FXML
-  private void showIMXDashboard() {
-    showView(imxView);
-    setActiveNav((Button) navRail.lookup("#imxNavButton"));
+  private void showTeamIMXSummary() {
+    showView(teamIMXSummaryView);
+    setActiveNav((Button) navRail.lookup("#teamIMXSummaryNavButton"));
   }
 }

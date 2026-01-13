@@ -6,12 +6,14 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.ColumnConstraints?>
 
 <VBox styleClass="content-pane" spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.swimdataapp.controller.DashboardController">
     <children>
@@ -21,69 +23,91 @@
                 <ComboBox fx:id="swimmerSelector" prefWidth="300.0" promptText="Select a Swimmer" />
             </children>
         </HBox>
-        <GridPane hgap="20" vgap="10">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            </columnConstraints>
-            <children>
-                <VBox styleClass="card">
-                    <children>
-                        <Label styleClass="caption-label" text="Age" />
-                        <Label fx:id="ageLabel" styleClass="data-label" text="-" />
-                    </children>
-                </VBox>
-                <VBox styleClass="card" GridPane.columnIndex="1">
-                    <children>
-                        <Label styleClass="caption-label" text="Roster Group" />
-                        <Label fx:id="rosterGroupLabel" styleClass="data-label" text="-" />
-                    </children>
-                </VBox>
-                <VBox styleClass="card" GridPane.columnIndex="2">
-                    <children>
-                        <Label styleClass="caption-label" text="IMX Score" />
-                        <Label fx:id="imxScoreLabel" styleClass="data-label" text="-" />
-                    </children>
-                </VBox>
-                <VBox styleClass="card" GridPane.columnIndex="3">
-                    <children>
-                        <Label styleClass="caption-label" text="IMX Level" />
-                        <Label fx:id="imxLevelLabel" styleClass="data-label" text="-" />
-                    </children>
-                </VBox>
-            </children>
-        </GridPane>
-        <GridPane hgap="20" VBox.vgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="60.0" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="40.0" />
-            </columnConstraints>
-            <children>
-                <VBox spacing="10">
-                    <children>
-                        <Label styleClass="sub-header-label" text="Personal Best Times" />
-                        <TableView fx:id="bestTimesTable" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="eventColumn" prefWidth="200.0" text="Event" />
-                                <TableColumn fx:id="timeColumn" prefWidth="100.0" text="Time" />
-                                <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
-                                <TableColumn fx:id="standardColumn" prefWidth="80.0" text="Standard" />
-                            </columns>
-                        </TableView>
-                    </children>
-                </VBox>
-                <VBox spacing="10" GridPane.columnIndex="1">
-                    <children>
-                        <Label styleClass="sub-header-label" text="IMX Score Progression" />
-                        <LineChart fx:id="imxHistoryChart" animated="false" VBox.vgrow="ALWAYS">
-                            <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
-                            <yAxis><NumberAxis side="LEFT" /></yAxis>
-                        </LineChart>
-                    </children>
-                </VBox>
-            </children>
-        </GridPane>
+        <TabPane fx:id="dashboardTabPane" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab text="Overview" closable="false">
+                    <content>
+                        <VBox spacing="20">
+                            <children>
+                                <GridPane hgap="20" vgap="10">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    </columnConstraints>
+                                    <children>
+                                        <VBox styleClass="card">
+                                            <children>
+                                                <Label styleClass="caption-label" text="Age" />
+                                                <Label fx:id="ageLabel" styleClass="data-label" text="-" />
+                                            </children>
+                                        </VBox>
+                                        <VBox styleClass="card" GridPane.columnIndex="1">
+                                            <children>
+                                                <Label styleClass="caption-label" text="Roster Group" />
+                                                <Label fx:id="rosterGroupLabel" styleClass="data-label" text="-" />
+                                            </children>
+                                        </VBox>
+                                        <VBox styleClass="card" GridPane.columnIndex="2">
+                                            <children>
+                                                <Label styleClass="caption-label" text="IMX Score" />
+                                                <Label fx:id="imxScoreLabel" styleClass="data-label" text="-" />
+                                            </children>
+                                        </VBox>
+                                        <VBox styleClass="card" GridPane.columnIndex="3">
+                                            <children>
+                                                <Label styleClass="caption-label" text="IMX Level" />
+                                                <Label fx:id="imxLevelLabel" styleClass="data-label" text="-" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane hgap="20" VBox.vgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" percentWidth="60.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" percentWidth="40.0" />
+                                    </columnConstraints>
+                                    <children>
+                                        <VBox spacing="10">
+                                            <children>
+                                                <Label styleClass="sub-header-label" text="Personal Best Times" />
+                                                <TableView fx:id="bestTimesTable" VBox.vgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="eventColumn" prefWidth="200.0" text="Event" />
+                                                        <TableColumn fx:id="timeColumn" prefWidth="100.0" text="Time" />
+                                                        <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
+                                                        <TableColumn fx:id="standardColumn" prefWidth="80.0" text="Standard" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="10" GridPane.columnIndex="1">
+                                            <children>
+                                                <Label styleClass="sub-header-label" text="IMX Score Progression" />
+                                                <LineChart fx:id="imxHistoryChart" animated="false" VBox.vgrow="ALWAYS">
+                                                    <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                                                    <yAxis><NumberAxis side="LEFT" /></yAxis>
+                                                </LineChart>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="IMX Details" closable="false">
+                    <content>
+                        <VBox fx:id="imxDetailsTabContent" />
+                    </content>
+                </Tab>
+                <Tab text="Test Set Analysis" closable="false">
+                    <content>
+                        <VBox fx:id="testSetAnalysisTabContent" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </children>
 </VBox>
