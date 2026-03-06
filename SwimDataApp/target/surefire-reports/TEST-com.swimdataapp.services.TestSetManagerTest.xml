@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.swimdataapp.services.TestSetManagerTest" time="0.068" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.swimdataapp.services.TestSetManagerTest" time="0.074" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-25-openjdk/lib"/>
-    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/target/surefire 2026-01-13T15-51-39_764-jvmRun1 surefire-20260113155139937_1tmp surefire_0-20260113155139937_2tmp"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /home/dardev/Learn/swimappp/Swimappp/SwimDataApp/target/surefire 2026-01-13T16-03-48_822-jvmRun1 surefire-20260113160348971_1tmp surefire_0-20260113160348971_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/dardev/Learn/swimappp/Swimappp/SwimDataApp/target/test-classes:/home/dardev/.m2/repository/org/openjfx/javafx-controls/21.0.2/javafx-controls-21.0.2.jar:/home/dardev/.m2/repository/org/openjfx/javafx-graphics/21.0.2/javafx-graphics-21.0.2.jar:/home/dardev/.m2/repository/org/openjfx/javafx-base/21.0.2/javafx-base-21.0.2.jar:/home/dardev/.m2/repository/org/openjfx/javafx-fxml/21.0.2/javafx-fxml-21.0.2.jar:/home/dardev/.m2/repository/com/github/virtuald/curvesapi/1.07/curvesapi-1.07.jar:/home/dardev/.m2/repository/org/jsoup/jsoup/1.15.3/jsoup-1.15.3.jar:/home/dardev/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/home/dardev/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/dardev/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/home/dardev/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/dardev/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/home/dardev/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -56,13 +56,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="loadTestSetsFromFile_invalidData_skipsInvalidRows" classname="com.swimdataapp.services.TestSetManagerTest" time="0.026">
+  <testcase name="loadTestSetsFromFile_invalidData_skipsInvalidRows" classname="com.swimdataapp.services.TestSetManagerTest" time="0.031">
     <system-err><![CDATA[Could not parse date in Test Sets sheet at row 2. Skipping row.
 Could not parse result value in Test Sets sheet at row 3. Skipping row.
 ]]></system-err>
   </testcase>
   <testcase name="loadTestSetsFromFile_invalidFilePath_throwsIOException" classname="com.swimdataapp.services.TestSetManagerTest" time="0.001"/>
-  <testcase name="loadTestSetsFromFile_emptyFile_noResultsLoaded" classname="com.swimdataapp.services.TestSetManagerTest" time="0.01"/>
-  <testcase name="loadTestSetsFromFile_completeFile_success" classname="com.swimdataapp.services.TestSetManagerTest" time="0.019"/>
-  <testcase name="loadTestSetsFromFile_missingSheet_noResultsLoaded" classname="com.swimdataapp.services.TestSetManagerTest" time="0.01"/>
+  <testcase name="loadTestSetsFromFile_emptyFile_noResultsLoaded" classname="com.swimdataapp.services.TestSetManagerTest" time="0.014"/>
+  <testcase name="loadTestSetsFromFile_completeFile_success" classname="com.swimdataapp.services.TestSetManagerTest" time="0.016"/>
+  <testcase name="loadTestSetsFromFile_missingSheet_noResultsLoaded" classname="com.swimdataapp.services.TestSetManagerTest" time="0.009"/>
 </testsuite>
